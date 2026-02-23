@@ -1,3 +1,5 @@
+// java -cp ".;libs/lwjgl.jar;libs/lwjgl-glfw.jar;libs/lwjgl-opengl.jar;libs/lwjgl-natives-windows.jar;libs/lwjgl-glfw-natives-windows.jar;libs/lwjgl-opengl-natives-windows.jar" CubeSpinner
+
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.system.MemoryStack;
