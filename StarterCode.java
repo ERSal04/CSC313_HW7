@@ -21,12 +21,6 @@ public class CubeSpinner {
     private float angleY = 0.0f;
     private float speed = 0.1f;
 
-    // Mouse state
-    private boolean mouseDown = false;
-    private double lastMouseX = 0.0;
-    private double lastMouseY = 0.0;
-    private float mouseSensitivity = 0.3f;
-
     public void run() {
         init();
         loop();
@@ -49,35 +43,6 @@ public class CubeSpinner {
         glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
             if (key == GLFW_KEY_ESCAPE && action == GLFW_RELEASE)
                 glfwSetWindowShouldClose(window, true);
-        });
-
-        // Mouse button callback — track when left button is pressed/released
-        glfwSetMouseButtonCallback(window, (win, button, action, mods) -> {
-            if (button == GLFW_MOUSE_BUTTON_LEFT) {
-                if (action == GLFW_PRESS) {
-                    mouseDown = true;
-                    // Capture current position so there's no jump on first drag
-                    double[] xpos = new double[1];
-                    double[] ypos = new double[1];
-                    glfwGetCursorPos(win, xpos, ypos);
-                    lastMouseX = xpos[0];
-                    lastMouseY = ypos[0];
-                } else if (action == GLFW_RELEASE) {
-                    mouseDown = false;
-                }
-            }
-        });
-
-        // Cursor position callback — update angles while dragging
-        glfwSetCursorPosCallback(window, (win, xpos, ypos) -> {
-            if (mouseDown) {
-                double dx = xpos - lastMouseX;
-                double dy = ypos - lastMouseY;
-                angleY += (float) dx * mouseSensitivity;
-                angleX += (float) dy * mouseSensitivity;
-            }
-            lastMouseX = xpos;
-            lastMouseY = ypos;
         });
 
         try (MemoryStack stack = stackPush()) {
